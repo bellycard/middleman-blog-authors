@@ -3,16 +3,15 @@ module Middleman
     class BlogData
 
       def authors
-        authors = []
+        authors = {}
         @_articles.each do |article|
           article.authors.each do |author|
-
-            author.articles << article
-            authors << author
+            authors[author.permalink] = author if authors[author.permalink].nil?
+            authors[author.permalink].articles << article
           end
         end
 
-        authors.uniq
+        authors.values
       end
 
     end
