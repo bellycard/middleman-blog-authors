@@ -3,15 +3,8 @@ module Middleman
     class BlogData
 
       def authors
-        authors = {}
-        @_articles.each do |article|
-          article.authors.each do |author|
-            authors[author.permalink] = author if authors[author.permalink].nil?
-            authors[author.permalink].articles << article
-          end
-        end
-
-        authors.values
+        permalinks = @_articles.map{|article| article.author_permalinks}.flatten.uniq
+        permalinks.map{|permalink| @app.blog_authors_data[permalink]}
       end
 
     end

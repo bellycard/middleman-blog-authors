@@ -12,21 +12,22 @@ class BlogAuthors < ::Middleman::Extension
     require 'author_pages'
     require 'author'
 
-    app.set :blog_authors, options
+    app.set :blog_authors_options, options
+    app.set :blog_authors_data, {}
   end
 
   def after_configuration
+
     @app.sitemap.register_resource_list_manipulator(
       :author_pages,
       ::Middleman::BlogAuthors::AuthorPages.new(@app, self),
       false
     )
-
   end
 
   helpers do
     def link_to_author(author)
-      author_path = ::Middleman::BlogAuthors::AuthorPages.link(self.blog_authors, author.permalink)
+      author_path = ::Middleman::BlogAuthors::AuthorPages.link(self.blog_authors_options, author)
       link_to author.name, "/#{author_path}"
     end
   end

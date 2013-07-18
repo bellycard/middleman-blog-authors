@@ -5,8 +5,12 @@ module Middleman
     # based on the authors of blog articles.
     class AuthorPages
       class << self
+        def permalink(author_name)
+          author_name.parameterize
+        end
+
         def link(blog_authors_options, author)
-          ::Middleman::Util.normalize_path(blog_authors_options.author_path.sub(':author', author.parameterize))
+          ::Middleman::Util.normalize_path(blog_authors_options.author_path.sub(':author', AuthorPages.permalink(author.name)))
         end
       end
 
@@ -20,12 +24,23 @@ module Middleman
       end
 
       def blog_authors_options
-        @app.blog_authors
+        @app.blog_authors_options
       end
 
       def manipulate_resource_list(resources)
+        # collect authors
+        @app.blog.articles.each do |article|
+          article.author_names.each do |author|
+            permalink = Middleman::BlogAuthors::AuthorPages.permalink(author)
+            if @app.blog_authors_data[permalink].nil?
+              @app.blog_authors_data[permalink] = ::Middleman::BlogAuthors::Author.new(author, @app.data)
+            end
+            @app.blog_authors_data[permalink].articles << article
+          end
+        end
+
         resources + self.blog_data.authors.map do |author|
-          path = AuthorPages.link(self.blog_authors_options, author.name)
+          path = AuthorPages.link(self.blog_authors_options, author)
         
           p = ::Middleman::Sitemap::Resource.new(
             @app.sitemap,
