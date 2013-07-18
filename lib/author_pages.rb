@@ -29,6 +29,7 @@ module Middleman
 
       def manipulate_resource_list(resources)
         # collect authors
+        @app.set :blog_authors_data, {}
         @app.blog.articles.each do |article|
           article.author_names.each do |author|
             permalink = Middleman::BlogAuthors::AuthorPages.permalink(author)
