@@ -17,7 +17,6 @@ class BlogAuthors < ::Middleman::Extension
   end
 
   def after_configuration
-
     @app.sitemap.register_resource_list_manipulator(
       :author_pages,
       ::Middleman::BlogAuthors::AuthorPages.new(@app, self),
