@@ -5,7 +5,7 @@
 In your Gemfile:
 
 ```
-gem "middleman-blog-authors", :git => "git@github.com:bellycard/middleman-blog-authors.git"
+gem "middleman-blog-authors"
 ```
 
 ## Configuration
