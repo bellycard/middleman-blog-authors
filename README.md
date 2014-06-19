@@ -26,9 +26,10 @@ authors: Darby Frey
 ---
 ```
 
-Create a template for the author page:
+Create a template for the author page. If this is not your main template, put it
+in source/layouts:
 
-`author.html.haml`
+`source/layouts/author.html.haml`
 
 ```
 ---
