@@ -4,6 +4,10 @@ require "middleman-core"
 class BlogAuthors < ::Middleman::Extension
   option :author_path, "authors/:author.html", 'Path to the individual author pages'
   option :author_template, "author.html", 'Template for the individual author pages'
+  expose_to_application blog_authors_options: :options
+  expose_to_application blog_authors_data: :blog_authors_data
+  attr_reader :blog_authors_options
+  attr_accessor :blog_authors_data
 
   def initialize(app, options_hash={}, &block)
     super
@@ -12,8 +16,8 @@ class BlogAuthors < ::Middleman::Extension
     require 'author_pages'
     require 'author'
 
-    app.set :blog_authors_options, options
-    app.set :blog_authors_data, {}
+    @blog_authors_options = options_hash
+    @blog_authors_data = {}
   end
 
   def after_configuration
