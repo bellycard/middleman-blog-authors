@@ -41,12 +41,12 @@ module Middleman
 
         resources + self.blog_data.authors.map do |author|
           path = AuthorPages.link(self.blog_authors_options, author)
-        
-          p = ::Middleman::Sitemap::Resource.new(
+
+          p = ::Middleman::Sitemap::ProxyResource.new(
             @app.sitemap,
-            path
+            path,
+            self.blog_authors_options.author_template
           )
-          p.proxy_to(self.blog_authors_options.author_template)
 
           p.add_metadata :locals => {
             'page_type' => 'author',
