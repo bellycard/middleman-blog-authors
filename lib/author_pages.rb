@@ -19,7 +19,7 @@ module Middleman
       end
 
       def blog_data
-        @app.blog
+        @app.extensions[:blog].first[1].data
       end
 
       def blog_authors_options
@@ -29,7 +29,7 @@ module Middleman
       def manipulate_resource_list(resources)
         @app.blog_authors_data.clear
         # collect authors
-        @app.blog.articles.each do |article|
+        blog_data.articles.each do |article|
           article.author_names.each do |author|
             permalink = Middleman::BlogAuthors::AuthorPages.permalink(author)
             if @app.blog_authors_data[permalink].nil?
