@@ -3,7 +3,7 @@ $:.push File.expand_path("../lib", __FILE__)
 
 Gem::Specification.new do |s|
   s.name        = "middleman-blog-authors"
-  s.version     = "0.0.1"
+  s.version     = "4.0.0"
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Darby Frey"]
   s.email       = ["darby@bellycard.com"]
@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
-  
-  # The version of middleman-core your extension depends on
-  s.add_runtime_dependency("middleman-core", [">= 3.1.3"])
+
+  s.add_runtime_dependency("middleman-core", [">= 4.0.0"])
+  s.add_runtime_dependency("middleman-blog", [">= 4.0.0"])
 end
