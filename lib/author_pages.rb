@@ -1,6 +1,5 @@
 module Middleman
   class BlogAuthors
-
     # A sitemap plugin that adds author pages to the sitemap
     # based on the authors of blog articles.
     class AuthorPages
@@ -20,7 +19,7 @@ module Middleman
       end
 
       def blog_data
-        @app.blog
+        @app.extensions[:blog].first[1].data
       end
 
       def blog_authors_options
@@ -28,9 +27,9 @@ module Middleman
       end
 
       def manipulate_resource_list(resources)
+        @app.blog_authors_data.clear
         # collect authors
-        @app.set :blog_authors_data, {}
-        @app.blog.articles.each do |article|
+        blog_data.articles.each do |article|
           article.author_names.each do |author|
             permalink = Middleman::BlogAuthors::AuthorPages.permalink(author)
             if @app.blog_authors_data[permalink].nil?
@@ -42,12 +41,12 @@ module Middleman
 
         resources + self.blog_data.authors.map do |author|
           path = AuthorPages.link(self.blog_authors_options, author)
-        
-          p = ::Middleman::Sitemap::Resource.new(
+
+          p = ::Middleman::Sitemap::ProxyResource.new(
             @app.sitemap,
-            path
+            path,
+            self.blog_authors_options.author_template
           )
-          p.proxy_to(self.blog_authors_options.author_template)
 
           p.add_metadata :locals => {
             'page_type' => 'author',
