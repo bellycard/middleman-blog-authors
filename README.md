@@ -1,16 +1,18 @@
-# Middleman-Blog-Authors
+# Middleman Blog Authors
+[![Gemnasium](https://img.shields.io/gemnasium/hatchloyalty/middleman-blog-authors.svg)](https://gemnasium.com/hatchloyalty/middleman-blog-authors)
+
 
 ## Installation
 
-In your Gemfile:
+Add the `middleman-blog-authors` gem to you Gemfile.
 
 ```
 gem "middleman-blog-authors"
 ```
 
-## Configuration
 
-In your config.rb:
+## Configuration
+Activate this extension in your config.rb file
 
 ```
 activate :authors
@@ -20,7 +22,7 @@ In your blog posts, add authors to the metadata:
 
 ```
 ---
-title: Building Middleman Addons
+title: Building Middleman Extensions
 date: 2013-07-17
 authors: Darby Frey
 ---
@@ -38,10 +40,15 @@ pageable: true
 per_page: 10
 ---
 
-%h1= author.name
+<h1><%= author.name %></h1>
 
-%ul
-  - page_articles.each do |article|
-    %li= link_to article.title, article
-
+<ul>
+  <% page_articles.each do |article| %>
+    <li><%= link_to article.title, article %></li>
+  <% end %>
+</ul>
 ```
+
+### License
+
+[MIT](/LICENSE)

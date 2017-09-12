@@ -9,7 +9,7 @@ module Middleman
         end
 
         def link(blog_authors_options, author)
-          ::Middleman::Util.normalize_path(blog_authors_options.author_path.sub(':author', AuthorPages.permalink(author.name)))
+          ::Middleman::Util.normalize_path(blog_authors_options.author_path.sub(":author", AuthorPages.permalink(author.name)))
         end
       end
 
@@ -49,9 +49,9 @@ module Middleman
           )
 
           p.add_metadata :locals => {
-            'page_type' => 'author',
-            'author' => author,
-            'articles' => author.articles,
+            "page_type" => "author",
+            "author" => author,
+            "articles" => author.articles,
           }
 
           p
